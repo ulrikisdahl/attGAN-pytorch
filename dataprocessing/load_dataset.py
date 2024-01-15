@@ -18,7 +18,8 @@ attribute_dict = {idx: torch.Tensor(row.values) for idx, row in attributes.iterr
 
 
 img_transform = transforms.Compose([
-    transforms.Resize(64),###????? RIKTIG?
+    transforms.CenterCrop(160),
+    transforms.Resize(64),
     transforms.ToTensor()
 ])
 
@@ -38,9 +39,8 @@ class faceDataLoader(Dataset):
         return (img, attribute_dict[self.dataset[idx][-10:]]) #pair img with its attribute vector
     
 
-dataset_path = "/kaggle/input/celeba-dataset/img_align_celeba/img_align_celeba"
-files = sorted(glob.glob(dataset_path + "/*.*"))
-files = [x for x in files if x[-10:] in attribute_dict.keys()]
-
-
-data_loader = DataLoader(faceDataLoader(files, img_transform), batch_size=32)
+def get_data_loader(dataset_path):
+    files = sorted(glob.glob(dataset_path + "/*.*"))
+    files = [x for x in files if x[-10:] in attribute_dict.keys()]
+    data_loader = DataLoader(faceDataLoader(files, img_transform), batch_size=32)
+    return data_loader
