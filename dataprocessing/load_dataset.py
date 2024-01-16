@@ -42,5 +42,5 @@ class faceDataLoader(Dataset):
 def get_data_loader(dataset_path):
     files = sorted(glob.glob(dataset_path + "/*.*"))
     files = [x for x in files if x[-10:] in attribute_dict.keys()]
-    data_loader = DataLoader(faceDataLoader(files, img_transform), batch_size=32)
+    data_loader = DataLoader(faceDataLoader(files, img_transform), batch_size=32, shuffle=True, drop_last=True)
     return data_loader
