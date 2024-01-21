@@ -30,8 +30,9 @@ l1Loss = nn.L1Loss()
 binaryCrossEntropy = nn.BCELoss()
 
 def discriminator_loss(real_image_predictions, fake_image_predictions):
-    real_image_targets = torch.ones_like(real_image_predictions) #optimize?
-    fake_image_targets = torch.zeros_like(fake_image_predictions)
+    #label smoothing
+    real_image_targets = torch.ones_like(real_image_predictions) - torch.rand(real_image_predictions.shape).to(device)*0.5+0.2
+    fake_image_targets = torch.rand(fake_image_predictions.shape).to(device) * 0.2
     real_image_loss = binaryCrossEntropy(real_image_predictions, real_image_targets)
     fake_image_loss = binaryCrossEntropy(fake_image_predictions, fake_image_targets)
     return real_image_loss + fake_image_loss
