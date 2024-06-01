@@ -122,7 +122,7 @@ class Discriminator(nn.Module):
         return x
 
 class Classifier(nn.Module):
-    def __init__(self, model):
+    def __init__(self, model, num_attributes):
         """
         Args:
             model: base model
@@ -131,8 +131,9 @@ class Classifier(nn.Module):
         
         #layers
         self.base_model = model
+        self.num_attributes = num_attributes
         self.dense1 = nn.Linear(in_features=1024*3*3, out_features=1024)
-        self.classifier = nn.Linear(in_features=1024, out_features=NUM_ATTRIBUTES)
+        self.classifier = nn.Linear(in_features=1024, out_features=self.num_attributes)
         
     def forward(self, x):
         """
