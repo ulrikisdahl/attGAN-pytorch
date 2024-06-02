@@ -16,7 +16,7 @@ Add eyeglasses:
 
 Change hair color:
 
-![blonde hair](/static/make-blonde.png)
+![blonde hair](/static/change-hair.png)
 
 Change gender:
 
